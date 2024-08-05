@@ -16,11 +16,4 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occurred." });
 });
 
-app.get("/", (req, res, next) => {
-  res.send("Sample text" + " running on this server");
-  res.end();
-});
-
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, console.log("Server started on port ${PORT}"));
+module.exports = app;
