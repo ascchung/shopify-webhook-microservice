@@ -16,7 +16,7 @@ async function registerWebhook() {
     const response = await shopify.rest.Webhook.create({
       session: shopify.session,
       topic: "customers/update",
-      address: "https://343e-107-139-107-69.ngrok-free.app/api/webhooks",
+      address: "https://07b4-107-139-107-69.ngrok-free.app/api/webhooks",
       format: "json",
     });
 
