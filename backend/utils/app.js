@@ -1,11 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const subscriptionRoutes = require("../routes/subscription-routes");
 require("dotenv").config();
 
 const app = express();
+const subscriptionRoutes = require("../routes/subscription-routes");
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use("/api", subscriptionRoutes);
 
