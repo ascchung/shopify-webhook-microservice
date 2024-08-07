@@ -1,13 +1,10 @@
 const crypto = require("crypto");
 
-// Replace with your actual Shopify API secret
 const secret = "107839242a32c9d78149dbdaba84f666";
 const body = JSON.stringify({
-  customer: {
-    id: 123456,
-    email: "henrique@cletile.com",
-    accepts_marketing: false,
-  },
+  contact_email: "henrique@cletile.com",
+  propertyName: "accepts_marketing",
+  propertyValue: "false",
 });
 
 const hash = crypto
