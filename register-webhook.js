@@ -1,29 +1,33 @@
-const { shopifyApi, ApiVersion } = require("@shopify/shopify-api");
-require("@shopify/shopify-api/adapters/node");
+const axios = require("axios");
 require("dotenv").config();
 
-const shopify = shopifyApi({
-  apiKey: process.env.SHOPIFY_API_KEY,
-  apiSecretKey: process.env.SHOPIFY_API_SECRET,
-  accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-  scopes: ["write_customers"],
-  hostName: process.env.SHOPIFY_STORE_URL.replace(/^https?:\/\//, ""),
-  apiVersion: ApiVersion.July23,
-});
-
-async function registerWebhook() {
+const registerWebhook = async () => {
   try {
-    const response = await shopify.rest.Webhook.create({
-      session: shopify.session,
-      topic: "customers/update",
-      address: "https://343e-107-139-107-69.ngrok-free.app/api/webhooks",
-      format: "json",
-    });
+    console.log("Attempting to register webhook...");
 
-    console.log("Webhook registered successfully:", response);
+    const response = await axios.post(
+      `https://${process.env.SHOPIFY_STORE_URL}/admin/api/2023-01/webhooks.json`,
+      {
+        webhook: {
+          topic: "customers/update",
+          address: "https://3b25-107-139-107-69.ngrok-free.app/api/webhooks/",
+          format: "json",
+        },
+      },
+      {
+        headers: {
+          "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN,
+        },
+      }
+    );
+
+    console.log("Webhook registered successfully:", response.data);
   } catch (error) {
-    console.error("Failed to register webhook:", error);
+    console.error(
+      "Failed to register webhook:",
+      error.response ? error.response.data : error.message
+    );
   }
-}
+};
 
 registerWebhook();
