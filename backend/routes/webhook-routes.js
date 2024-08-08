@@ -1,9 +1,8 @@
-const express = require("express");
-const { handleCustomerUpdate } = require("../controllers/webhook-controllers");
-const verifyWebhook = require("../utils/verify-webhook");
+const express = require('express');
+const { handleCustomerUpdate } = require('../controllers/webhook-controllers');
 
 const router = express.Router();
 
-router.post("/webhooks", verifyWebhook, handleCustomerUpdate);
+router.post('/customers/update', handleCustomerUpdate);
 
 module.exports = router;
