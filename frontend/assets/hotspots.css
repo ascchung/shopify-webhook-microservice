@@ -1,0 +1,116 @@
+.custom-hotspots-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .custom-hotspots-background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .custom-hotspots-content {
+    position: relative;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .cta-button:hover {
+    opacity: 0.8;
+  }
+
+  .hotspots-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .hotspot-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hotspot-popup {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    min-width: 200px;
+    max-width: 500px;
+    width: auto;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  .hotspot:hover .hotspot-popup {
+    display: block;
+  }
+
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .cta-button {
+      padding: 8px 16px;
+    }
+
+    .hotspot {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hotspot-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hotspot-popup {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .cta-button {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    .hotspot {
+      width: 15px;
+      height: 15px;
+    }
+
+    .hotspot-icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .hotspot-popup {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
