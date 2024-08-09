@@ -7,9 +7,8 @@
         <h2 class="section-{{ section.id }}-title" style="
           top: {{ section.settings.title_position_top }}%;
           left: {{ section.settings.title_position_left }}%;
-          font-size: {{ section.settings.title_font_size }}px;
           color: {{ section.settings.title_color }};
-          position: absolute; /* Ensuring absolute positioning */
+          position: absolute;
         ">
           {{ section.settings.title }}
         </h2>
@@ -18,9 +17,8 @@
         <p class="section-{{ section.id }}-description" style="
           top: {{ section.settings.description_position_top }}%;
           left: {{ section.settings.description_position_left }}%;
-          font-size: {{ section.settings.description_font_size }}px;
           color: {{ section.settings.description_color }};
-          position: absolute; /* Ensuring absolute positioning */
+          position: absolute;
         ">
           {{ section.settings.description }}
         </p>
@@ -32,13 +30,13 @@
           background-color: {{ section.settings.button_background_color }};
           color: {{ section.settings.button_text_color }};
           border-radius: {{ section.settings.button_border_radius }}px;
-          position: absolute; /* Ensuring absolute positioning */
+          position: absolute;
+          z-index: 10;
         ">
           {{ section.settings.cta_text }}
         </a>
       {% endif %}
     </div>
-
     <div class="hotspots-container">
       {% for hotspot in section.blocks %}
         <div class="hotspot" style="top: {{ hotspot.settings.position_top }}%; left: {{ hotspot.settings.position_left }}%;">
@@ -58,27 +56,50 @@
 </section>
 
 {%- style -%}
+
+  /* Default styles for larger screens (Desktop) */
   .section-{{ section.id }}-title {
-    /* Position and other styles have already been applied inline */
+    font-size: 40px;
   }
 
   .section-{{ section.id }}-description {
-    /* Position and other styles have already been applied inline */
+    font-size: 24px;
   }
 
   .section-{{ section.id }}-button {
-    /* Position and other styles have already been applied inline */
+    font-size: 22px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    /* Tablet and smaller screens */
+    .section-{{ section.id }}-title {
+      font-size: 30px;
+    }
+
+    .section-{{ section.id }}-description {
+      font-size: 18px;
+    }
+
+    .section-{{ section.id }}-button {
+      font-size: 16px;
+    }
   }
 
   @media screen and (max-width: 768px) {
-    .section-{{ section.id }}-title,
-    .section-{{ section.id }}-description,
-    .section-{{ section.id }}-button {
+    /* Mobile devices */
+    .section-{{ section.id }}-title {
+      font-size: 20px;
+    }
+
+    .section-{{ section.id }}-description {
       font-size: 14px;
+    }
+
+    .section-{{ section.id }}-button {
+      font-size: 12px;
     }
   }
 {%- endstyle -%}
-
 
 
 
@@ -121,15 +142,6 @@
       "default": 10
     },
     {
-      "type": "range",
-      "id": "title_font_size",
-      "label": "Title Font Size",
-      "min": 10,
-      "max": 100,
-      "step": 1,
-      "default": 24
-    },
-    {
       "type": "textarea",
       "id": "description",
       "label": "Description"
@@ -157,15 +169,6 @@
       "max": 100,
       "step": 1,
       "default": 10
-    },
-    {
-      "type": "range",
-      "id": "description_font_size",
-      "label": "Description Font Size",
-      "min": 10,
-      "max": 100,
-      "step": 1,
-      "default": 14
     },
     {
       "type": "text",
