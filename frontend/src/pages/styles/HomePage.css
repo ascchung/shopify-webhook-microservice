@@ -1,0 +1,72 @@
+.homepage-container {
+  height: 100vh;
+  background-image: url("https://images.pexels.com/photos/1007804/pexels-photo-1007804.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hotspot {
+  position: absolute;
+  padding: 10px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.hotspot svg {
+  width: 50%;
+  height: 50%;
+  display: block;
+}
+
+.popup-card {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 300px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hotspot-icon {
+    width: 30px; /* Reduce size on smaller screens */
+    height: 30px;
+  }
+
+  .popup-card {
+    width: 80%; /* Adjust width for smaller screens */
+    top: 20%; /* Adjust top positioning */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotspot-icon {
+    width: 25px; /* Further reduce size on very small screens */
+    height: 25px;
+  }
+
+  .popup-card {
+    width: 90%; /* Adjust width for very small screens */
+    padding: 10px;
+  }
+}

@@ -1,0 +1,28 @@
+{% schema %}
+{
+  "name": "Custom Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-section" style="background-image: url({{ section.settings.background_image | img_url: 'master' }});">
+  <h2>{{ section.settings.title }}</h2>
+  <p>{{ section.settings.description }}</p>
+  <!-- Add hotspots and other custom HTML here -->
+</div>
