@@ -48,6 +48,14 @@
           <div class="hotspot-popup">
             <h3>{{ hotspot.settings.title }}</h3>
             <p>{{ hotspot.settings.description }}</p>
+            {% if hotspot.settings.product_link != blank %}
+              <a href="{{ hotspot.settings.product_link }}" class="hotspot-cta-button" style="
+                background-color: {{ hotspot.settings.button_background_color }};
+                color: {{ hotspot.settings.button_text_color }};
+              ">
+                {{ hotspot.settings.product_button_text }}
+              </a>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
@@ -100,8 +108,6 @@
     }
   }
 {%- endstyle -%}
-
-
 
 {% schema %}
 {
@@ -252,6 +258,29 @@
           "max": 100,
           "step": 1,
           "default": 50
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Product Link"
+        },
+        {
+          "type": "text",
+          "id": "product_button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+         {
+          "type": "color",
+          "id": "button_background_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     }
