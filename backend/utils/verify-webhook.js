@@ -11,8 +11,8 @@ const verifyWebhook = (req, res, next) => {
   const hmac = req.get("X-Shopify-Hmac-Sha256");
   const hash = crypto
     .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
-    .update(req.rawBody, "utf8", "hex")
-    .digest("base64");
+    .update(req.rawBody, "utf8")
+    .digest("base64"); // Removed the incorrect "hex" parameter
 
   console.log(`Received HMAC: ${hmac}`);
   console.log(`Calculated Hash: ${hash}`);
