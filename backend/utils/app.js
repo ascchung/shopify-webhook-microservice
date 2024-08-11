@@ -1,18 +1,15 @@
 const express = require("express");
 require("dotenv").config();
-const { rawBodySaver, verifyWebhook } = require("../utils/verify-webhook");
-const webhookRoutes = require("../routes/webhook-routes");
+const { rawBodySaver, verifyWebhook } = require("./utils/verify-webhook");
+const webhookRoutes = require("./routes/webhook-routes");
 
 const app = express();
+
+// Capture raw body data
 app.use(express.json({ verify: rawBodySaver }));
 
 // Routes
 app.use("/api/webhooks", verifyWebhook, webhookRoutes);
-
-// Root Route
-app.get("/", (req, res) => {
-  res.send("Hello welcome to my deployed app");
-});
 
 // Error handling middleware
 app.use((error, req, res, next) => {
