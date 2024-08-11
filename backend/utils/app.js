@@ -9,14 +9,29 @@ const app = express();
 // Capture raw body data
 app.use(express.json({ verify: rawBodySaver }));
 
-if (process.env.NODE_ENV === "production") {
-  subscribeToWebhook(
-    process.env.SHOPIFY_STORE_URL,
-    process.env.SHOPIFY_ACCESS_TOKEN,
-    "customers/update",
-    `${process.env.WEBHOOK_URL}/api/webhooks/customers/update`
-  );
-}
+const manageWebhookSubscription = async () => {
+  try {
+    await subscribeToWebhook(
+      process.env.SHOPIFY_STORE_URL,
+      process.env.SHOPIFY_ACCESS_TOKEN,
+      "customers/update",
+      `${process.env.WEBHOOK_URL}/api/webhooks/customers/update`
+    );
+    console.log("Webhook subscription created or already exists.");
+  } catch (error) {
+    if (
+      error.errors &&
+      error.errors.address &&
+      error.errors.address.includes("for this topic has already been taken")
+    ) {
+      console.log("Webhook already exists. No need to create a new one.");
+    } else {
+      console.error("Error creating webhook subscription:", error);
+    }
+  }
+};
+
+manageWebhookSubscription();
 
 app.get("/", (req, res, next) => {
   res.send("This is my deployed app!");
