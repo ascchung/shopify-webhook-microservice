@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const { rawBodySaver, verifyWebhook } = require("./utils/verify-webhook");
+const { rawBodySaver, verifyWebhook } = require("./verify-webhook");
 const webhookRoutes = require("./routes/webhook-routes");
 
 const app = express();
