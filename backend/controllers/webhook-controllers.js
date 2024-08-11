@@ -8,11 +8,11 @@ const handleCustomerUpdate = async (req, res, next) => {
   console.log("Received payload:", payload);
 
   try {
-    // Extract customer details from the payload
-    const { id, email, email_marketing_consent } = payload;
-    console.log(`Processing customer with ID: ${id} and email: ${email}`);
+    const { customer_id, email_address, email_marketing_consent } = payload;
+    console.log(
+      `Processing customer with ID: ${customer_id} and email: ${email_address}`
+    );
 
-    // Create the Shopify REST client instance
     const client = axios.create({
       baseURL: `https://${process.env.SHOPIFY_STORE_URL}/admin/api/2024-07`,
       headers: {
@@ -20,27 +20,27 @@ const handleCustomerUpdate = async (req, res, next) => {
       },
     });
 
-    // Search for the customer by email
+    /*
     const searchResponse = await client.get("/customers/search.json", {
-      params: { query: `email:${email}` },
+      params: { query: `email:${email_address}` },
     });
 
     if (searchResponse.data.customers.length === 0) {
-      console.log(`Customer with email ${email} not found`);
+      console.log(`Customer with email ${email_address} not found`);
       return res
         .status(404)
-        .json({ message: `Customer with email ${email} not found` });
+        .json({ message: `Customer with email ${email_address} not found` });
     }
 
     const customerId = searchResponse.data.customers[0].id;
-    console.log(`Found customer ID: ${id}`);
+    console.log(`Found customer ID: ${customerId}`);
+    */
 
-    // Update the customer with the new marketing status
-    const updateResponse = await client.put(`/customers/${id}.json`, {
+    const updateResponse = await client.put(`/customers/${customer_id}.json`, {
       customer: {
-        id: id,
+        id: customer_id,
         email_marketing_consent: {
-          state: "subscribed",
+          state: email_marketing_consent.state || "subscribed",
         },
       },
     });
@@ -50,7 +50,7 @@ const handleCustomerUpdate = async (req, res, next) => {
       .status(200)
       .json({ message: "Customer marketing status updated successfully" });
   } catch (error) {
-    console.error("Error processing webhook:", error);
+    console.error("Error processing webhook:", error.message);
     return next(new HttpError("Internal server error", 500));
   }
 };
