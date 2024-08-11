@@ -8,6 +8,10 @@ const app = express();
 // Capture raw body data
 app.use(express.json({ verify: rawBodySaver }));
 
+app.get("/", (req, res, next) => {
+  res.send("This is my deployed app!");
+});
+
 // Routes
 app.use("/api/webhooks", verifyWebhook, webhookRoutes);
 
