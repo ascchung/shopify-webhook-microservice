@@ -14,7 +14,7 @@ const handleCustomerUpdate = async (req, res, next) => {
 
     // Create the Shopify REST client instance
     const client = axios.create({
-      baseURL: `https://${process.env.SHOPIFY_STORE_URL}/admin/api/2023-07`,
+      baseURL: `https://${process.env.SHOPIFY_STORE_URL}/admin/api/2024-07`,
       headers: {
         'X-Shopify-Access-Token': process.env.SHOPIFY_ACCESS_TOKEN,
       },
