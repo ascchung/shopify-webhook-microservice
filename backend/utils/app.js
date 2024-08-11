@@ -15,7 +15,7 @@ const manageWebhookSubscription = async () => {
       process.env.SHOPIFY_STORE_URL,
       process.env.SHOPIFY_ACCESS_TOKEN,
       "customers/update",
-      `${process.env.WEBHOOK_URL}/api/webhooks/customers/update`
+      `${process.env.WEBHOOK_URL}/api/webhooks/customers/update` // Make sure WEBHOOK_URL does not contain 'api/webhooks/customers/update'
     );
     console.log("Webhook subscription created or already exists.");
   } catch (error) {
