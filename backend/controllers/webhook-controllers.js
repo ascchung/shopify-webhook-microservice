@@ -44,7 +44,10 @@ const handleCustomerUpdate = async (req, res, next) => {
       .status(200)
       .json({ message: "Customer marketing status updated successfully" });
   } catch (error) {
-    console.error("Error processing webhook:", error);
+    console.error(
+      "Error processing webhook:",
+      error.response ? error.response.data : error.message
+    );
     return next(new HttpError("Internal server error", 500));
   }
 };
