@@ -6,9 +6,6 @@ const webhookRoutes = require("../routes/webhook-routes");
 
 const app = express();
 
-// Serving static files from the public directory
-app.use(express.static(path.join(__dirname, "public")));
-
 // Capture raw body data
 app.use(express.json({ verify: rawBodySaver }));
 
@@ -36,40 +33,12 @@ const manageWebhookSubscription = async () => {
 
 manageWebhookSubscription();
 
-// Form on /customers/update
-app.get("/customers/update", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "update-customer.html"));
+app.get("/", (req, res, next) => {
+  res.send("This is my deployed app!");
 });
 
 // Routes
 app.use("/api/webhooks", verifyWebhook, webhookRoutes);
-
-app.post("/update-customer", async (req, res, next) => {
-  const { customerId, email, status } = req.body;
-
-  try {
-    const client = axios.create({
-      baseURL: `https://${process.env.SHOPIFY_STORE_URL}/admin/api/2024-07`,
-      headers: {
-        "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN,
-      },
-    });
-
-    const updateResponse = await client.put(`/customers/${customerId}.json`, {
-      customer: {
-        id: customerId,
-        email_marketing_consent: {
-          state: status,
-        },
-      },
-    });
-
-    res.send("Customer marketing status updated successfully");
-  } catch (error) {
-    console.error("Error updating customer:", error);
-    res.status(500).send("Error updating customer");
-  }
-});
 
 // Error handling middleware
 app.use((error, req, res, next) => {
