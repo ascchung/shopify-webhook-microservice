@@ -34,6 +34,7 @@ const handleCustomerUpdate = async (req, res, next) => {
         id: customerId,
         email_marketing_consent: {
           state: "not_subscribed",
+          opt_in_level: "single_opt_in",
         },
       },
     });
