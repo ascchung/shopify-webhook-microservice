@@ -1,15 +1,16 @@
 const crypto = require("crypto");
 
 const secret = "107839242a32c9d78149dbdaba84f666";
-const body = JSON.stringify({
-  contact_email: "henrique@cletile.com",
-  propertyName: "accepts_marketing",
-  propertyValue: "false",
+const payload = JSON.stringify({
+  id: 7757726548216,
+  email: "testemail@example.com",
+  email_marketing_consent: {
+    state: "subscribed",
+  },
 });
 
-const hash = crypto
-  .createHmac("sha256", secret)
-  .update(body, "utf8")
-  .digest("base64");
+const hmac = crypto.createHmac("sha256", secret);
+hmac.update(payload);
+const hmacHeader = hmac.digest("base64");
 
-console.log(hash);
+console.log(hmacHeader);
