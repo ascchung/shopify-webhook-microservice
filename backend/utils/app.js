@@ -1,6 +1,10 @@
 const express = require("express");
 require("dotenv").config();
 const { rawBodySaver, verifyWebhook } = require("./verify-webhook");
+const {
+  renderUpdateForm,
+  handleManualUpdate,
+} = require("../controllers/manual-update-controller");
 const subscribeToWebhook = require("../utils/webhook-subscription");
 const webhookRoutes = require("../routes/webhook-routes");
 
@@ -8,6 +12,7 @@ const app = express();
 
 // Capture raw body data
 app.use(express.json({ verify: rawBodySaver }));
+app.use(express.urlencoded({ extended: true })); // Needed to parse form data
 
 const manageWebhookSubscription = async () => {
   try {
@@ -33,9 +38,9 @@ const manageWebhookSubscription = async () => {
 
 manageWebhookSubscription();
 
-app.get("/", (req, res, next) => {
-  res.send("This is my deployed app!");
-});
+app.get("/", renderUpdateForm);
+
+app.post("/update-customer", handleManualUpdate);
 
 // Routes
 app.use("/api/webhooks", verifyWebhook, webhookRoutes);
