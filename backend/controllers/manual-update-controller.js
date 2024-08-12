@@ -14,7 +14,7 @@ const renderUpdateForm = (req, res, next) => {
       <label for="status">Marketing Status:</label>
       <select id="status" name="status">
         <option value="subscribed">Subscribed</option>
-        <option value="not_subscribed">Not Subscribed</option>
+        <option value="unsubscribed">Not Subscribed</option>
       </select>
       <br>
       <button type="submit">Update</button>
@@ -23,6 +23,8 @@ const renderUpdateForm = (req, res, next) => {
 };
 
 const handleManualUpdate = async (req, res, next) => {
+  console.log("Received form data:", req.body);
+
   const { customerId, email, marketingStatus } = req.body;
 
   if (!customerId || !email || !marketingStatus) {
