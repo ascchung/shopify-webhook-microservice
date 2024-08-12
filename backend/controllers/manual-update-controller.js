@@ -23,7 +23,11 @@ const renderUpdateForm = (req, res, next) => {
 };
 
 const handleManualUpdate = async (req, res, next) => {
-  const { customerId, email, status } = req.body;
+  const { customerId, email, marketingStatus } = req.body;
+
+  if (!customerId || !email || !marketingStatus) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
 
   try {
     const client = axios.create({
@@ -36,9 +40,8 @@ const handleManualUpdate = async (req, res, next) => {
     const updateResponse = await client.put(`/customers/${customerId}.json`, {
       customer: {
         id: customerId,
-        email,
         email_marketing_consent: {
-          state: status,
+          state: marketingStatus,
         },
       },
     });
@@ -48,7 +51,7 @@ const handleManualUpdate = async (req, res, next) => {
       .status(200)
       .json({ message: "Customer marketing status updated successfully" });
   } catch (error) {
-    console.error("Error processing update:", error);
+    console.error("Error updating customer:", error);
     return next(new HttpError("Internal server error", 500));
   }
 };
