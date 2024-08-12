@@ -28,20 +28,6 @@ const handleCustomerUpdate = async (req, res, next) => {
       },
     });
 
-    // Search for the customer by email
-    const searchResponse = await client.get("/customers/search.json", {
-      params: { query: `email:${email}` },
-    });
-
-    if (searchResponse.data.customers.length === 0) {
-      console.log(`Customer with email ${email} not found`);
-      return res
-        .status(404)
-        .json({ message: `Customer with email ${email} not found` });
-    }
-
-    console.log(`Found customer ID: ${customerId}`);
-
     // Update the customer with the new marketing status
     const updateResponse = await client.put(`/customers/${customerId}.json`, {
       customer: {
