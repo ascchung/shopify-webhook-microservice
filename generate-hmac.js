@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const secret = "107839242a32c9d78149dbdaba84f666";
 const payload = JSON.stringify({
   id: 7757726548216,
-  email: "testemail@example.com",
+  email: "henrique@cletile.com",
   email_marketing_consent: {
     state: "subscribed",
   },

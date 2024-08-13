@@ -42,7 +42,6 @@ app.get("/", renderUpdateForm);
 
 app.post("/update-customer", handleManualUpdate);
 
-// Routes
 app.use("/api/webhooks", verifyWebhook, webhookRoutes);
 
 // Error handling middleware
