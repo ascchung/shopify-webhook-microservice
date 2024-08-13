@@ -10,12 +10,6 @@ Clone the repository
   git clone ...
 ```
 
-Install MySQL
-
-```bash
-  brew install mysql
-```
-
 Install express and nodemon
 
 ```bash
